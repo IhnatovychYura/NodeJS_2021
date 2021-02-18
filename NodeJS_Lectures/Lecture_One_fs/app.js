@@ -2,7 +2,7 @@ const {number, greeting, NodeJS} = require('./helper/helper');
 
 console.log(number);
 
-greeting('Yuriy', 25);
+greeting('Yuriy', 25);  
 
 const nodeJS = new NodeJS('NodeJS')
 
