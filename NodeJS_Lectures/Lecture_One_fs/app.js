@@ -192,8 +192,3 @@ const path = require('path');
 //
 // Variant 2
 // readStream.pipe(writeStream );
-
-
-
-
-
