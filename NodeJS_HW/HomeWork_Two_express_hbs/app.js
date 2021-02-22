@@ -31,14 +31,14 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.post('/login', (req, res) => {
-    let outsideUser = req.body
-    for (let i = 0; i < users.length; i++) {
-        if (outsideUser.email === users[i].email && outsideUser.password === users[i].password) {
-            res.redirect(`/users/${i}`)
-        } else {
-            res.redirect('/register')
-        }
+    let {email, password} = req.body;
+    let findUser = users.find(user => user.email === email && user.password === password)
+
+    if(findUser) {
+        res.redirect(`/users/${users.indexOf(findUser)}`)
+        return
     }
+    res.redirect('/register')
 })
 
 app.get('/users/:userId', (req, res) => {
@@ -56,14 +56,15 @@ app.get('/register', (req, res) => {
 
 app.post('/register', (req, res) => {
 
-    for (let i = 0; i < users.length; i++) {
-        if (req.body.email === users[i].email) {
-            res.redirect('/error')
-        } else {
-            users.push(req.body);
-            res.redirect('/users')
-        }
+    let {email} = req.body;
+    let findUser = users.find(user => user.email === email)
+
+    if(findUser) {
+        res.redirect('/error')
+        return
     }
+    users.push(req.body);
+    res.redirect('/users')
 })
 
 app.get('/error', (req, res) => {
