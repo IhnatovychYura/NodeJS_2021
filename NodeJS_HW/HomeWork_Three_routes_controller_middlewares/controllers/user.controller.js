@@ -37,6 +37,7 @@ module.exports = {
     deleteUser: (req, res) => {
         try {
             const {userId} = req.params;
+
             userService.deleteUser(userId);
 
             res.status(statusCode.NOT_FOUND).json(errorMessage.USER_DELETED['ua']);

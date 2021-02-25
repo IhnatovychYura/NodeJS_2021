@@ -25,16 +25,15 @@ module.exports = {
                 throw new Error(errorMessage.EMPTY_FIELD['ua']);
             }
 
-            if (password.length < 6){
-                throw new Error(errorMessage.TOO_WEAK_PASSWORD['ua']);
-            }
-
             if (!email.includes('@')){
                 throw new Error(errorMessage.NOT_VALID_EMAIL['ua']);
             }
 
-            next();
+            if (password.length < 6){
+                throw new Error(errorMessage.TOO_WEAK_PASSWORD['ua']);
+            }
 
+            next();
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
