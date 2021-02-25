@@ -13,7 +13,7 @@ module.exports = {
         DB.push(userObject)
     },
 
-    deleteUser: (userObject) => {
-        DB.
+    deleteUser: (userId) => {
+        DB.splice(userId, 1);
     }
 }

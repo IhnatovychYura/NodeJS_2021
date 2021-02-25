@@ -26,7 +26,8 @@ module.exports = {
     },
 
     deleteUser: (req, res) => {
-        userService.deleteUser(req.body);
+        const {userId} = req.params;
+        userService.deleteUser(userId);
 
         res.status(errorCode.NOT_FOUND).json('USER IS DELETED');
     }
