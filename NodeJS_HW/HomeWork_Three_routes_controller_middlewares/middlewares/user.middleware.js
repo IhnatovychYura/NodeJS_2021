@@ -1,4 +1,6 @@
-const errorCodes = require('../constants/errorCodes.enums');
+const statusCode = require('../constants/statusCodes.enums');
+const errorMessage = require('../errors/errors.messages');
+
 
 module.exports = {
     checkIsIdValid: (req, res, next) => {
@@ -6,12 +8,12 @@ module.exports = {
             const userId = +req.params.userId;
 
             if (userId < 0 || !Number.isInteger(userId) || Number.isNaN(userId)) {
-                throw new Error('Not Valid Id')
+                throw new Error(errorMessage.NOT_VALID_ID["ua"]);
             }
 
             next();
         } catch (e) {
-            res.status(errorCodes.BAD_REQUEST).json(e.message)
+            res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
 
@@ -20,21 +22,21 @@ module.exports = {
             const {email, login, password, prefLang = 'en'} = req.body;
 
             if (!email || !login || !password ) {
-                throw new Error('Some field is empty');
+                throw new Error(errorMessage.EMPTY_FIELD['ua']);
             }
 
             if (password.length < 6){
-                throw new Error(errorMessage.TOO_WEAK_PASSWORD[prefLang]);
+                throw new Error(errorMessage.TOO_WEAK_PASSWORD['ua']);
             }
 
             if (!email.includes('@')){
-                throw new Error('Not valid email')
+                throw new Error(errorMessage.NOT_VALID_EMAIL['ua']);
             }
 
-            next()
+            next();
 
         } catch (e) {
-            res.status(errorCodes.BAD_REQUEST).json(e.message)
+            res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     }
 }

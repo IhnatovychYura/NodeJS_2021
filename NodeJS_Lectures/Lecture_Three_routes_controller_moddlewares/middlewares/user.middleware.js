@@ -1,5 +1,5 @@
 const errorCodes = require('../constants/errorCodes.enums');
-const errorMessage = require('../errors/errors.messages')
+const errorMessage = require('../errors/errors.messages');
 
 module.exports = {
     checkIsIdValid: (req, res, next) => {
