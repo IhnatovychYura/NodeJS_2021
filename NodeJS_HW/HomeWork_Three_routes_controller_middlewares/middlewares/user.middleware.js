@@ -1,5 +1,4 @@
 const errorCodes = require('../constants/errorCodes.enums');
-const errorMessage = require('../errors/errors.messages')
 
 module.exports = {
     checkIsIdValid: (req, res, next) => {
@@ -18,14 +17,18 @@ module.exports = {
 
     isNewUserValid: (req, res, next) => {
         try{
-            const {name, password, prefLang = 'en'} = req.body;
+            const {email, login, password, prefLang = 'en'} = req.body;
 
-            if (!name || !password) {
+            if (!email || !login || !password ) {
                 throw new Error('Some field is empty');
             }
 
             if (password.length < 6){
                 throw new Error(errorMessage.TOO_WEAK_PASSWORD[prefLang]);
+            }
+
+            if (!email.includes('@')){
+                throw new Error('Not valid email')
             }
 
             next()
