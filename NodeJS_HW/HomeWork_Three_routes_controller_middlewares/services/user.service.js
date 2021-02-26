@@ -4,12 +4,17 @@ const errorMessage = require('../errors/errors.messages');
 
 module.exports = {
     findUsers: (reqUser) => {
+        let findUser = DB.find(user => user.email === reqUser.email);
 
         if (!reqUser.email) {
             return DB
         }
 
-        return DB.find(user => user.email === reqUser.email);
+        if (!findUser) {
+            throw new Error(errorMessage.USER_NOT_FOUND['ua']);
+        }
+
+        return findUser
     },
 
     findUserById: (userId) => {

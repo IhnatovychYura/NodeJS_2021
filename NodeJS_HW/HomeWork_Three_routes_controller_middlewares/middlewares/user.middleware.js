@@ -1,7 +1,6 @@
 const statusCode = require('../constants/statusCodes.enums');
 const errorMessage = require('../errors/errors.messages');
 
-
 module.exports = {
     checkIsIdValid: (req, res, next) => {
         try {
@@ -37,5 +36,5 @@ module.exports = {
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
-    }
+    },
 }
