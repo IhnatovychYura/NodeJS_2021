@@ -3,9 +3,10 @@ const statusCode = require('../constants/statusCodes.enums');
 const errorMessage = require('../errors/errors.messages');
 
 module.exports = {
-    getAllUsers: (req, res) => {
+
+    getUsers: (req, res) => {
         try {
-            const users = userService.findUsers();
+            const users = userService.findUsers(req.body);
 
             res.json(users);
         } catch (e) {

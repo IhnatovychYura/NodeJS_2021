@@ -3,12 +3,17 @@ const DB = require('../dataBase/users');
 const errorMessage = require('../errors/errors.messages');
 
 module.exports = {
-    findUsers: () => {
-        return DB
+    findUsers: (reqUser) => {
+
+        if (!reqUser.email) {
+            return DB
+        }
+
+        return DB.find(user => user.email === reqUser.email);
     },
 
     findUserById: (userId) => {
-        if(userId > DB.length - 1){
+        if (userId > DB.length - 1) {
             throw new Error(errorMessage.USER_NOT_FOUND['ua']);
         }
 
@@ -18,7 +23,7 @@ module.exports = {
     createUser: (userObject) => {
         let findUser = DB.some(user => user.email === userObject.email);
 
-        if(findUser) {
+        if (findUser) {
             throw new Error(errorMessage.USER_EXISTS['ua']);
         }
 
@@ -26,7 +31,7 @@ module.exports = {
     },
 
     deleteUser: (userId) => {
-        if(userId > DB.length - 1){
+        if (userId > DB.length - 1) {
             throw new Error(errorMessage.USER_NOT_FOUND['ua']);
         }
 
