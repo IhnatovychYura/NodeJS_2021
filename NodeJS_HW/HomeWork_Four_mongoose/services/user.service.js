@@ -1,19 +1,11 @@
 const User = require('../dataBase/models/User');
 
 module.exports = {
-    findUsers: (userQuery) => {
-        return User.find(userQuery);
-    },
+    findUsers: (userQuery) => User.find(userQuery),
 
-    findUserById: (userId) => {
-        return User.findById(userId);
-    },
+    findUserById: (userId) => User.findById(userId),
 
-    createUser: (userObject) => {
-        return User.create(userObject);
-    },
+    createUser: (userObject) => User.create(userObject),
 
-    deleteUser: (userId) => {
-        return User.findByIdAndRemove(userId);
-    }
-}
+    deleteUser: (userId) => User.findByIdAndRemove(userId)
+};

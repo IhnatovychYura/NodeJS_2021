@@ -1,21 +1,11 @@
 const Car = require('../dataBase/models/Car');
-const errorMessage = require('../errors/errors.messages');
 
 module.exports = {
-    findCars: (carQuery) => {
-        return Car.find(carQuery);
-    },
+    findCars: (carQuery) => Car.find(carQuery),
 
-    findCarById: (carId) => {
-        return Car.findById(carId);
-    },
+    findCarById: (carId) => Car.findById(carId),
 
-    createCar: (carObject) => {
+    createCar: (carObject) => Car.create(carObject),
 
-        return Car.create(carObject);
-    },
-
-    deleteCar: (carId) => {
-        return Car.findByIdAndRemove(carId);
-    }
-}
+    deleteCar: (carId) => Car.findByIdAndRemove(carId)
+};

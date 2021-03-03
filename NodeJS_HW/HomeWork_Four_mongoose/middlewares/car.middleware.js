@@ -4,10 +4,10 @@ const errorMessage = require('../errors/errors.messages');
 module.exports = {
     checkIsIdValid: (req, res, next) => {
         try {
-            const carId = req.params.carId;
+            const { carId } = req.params;
 
             if (carId.length !== 24) {
-                throw new Error(errorMessage.NOT_VALID_ID["ua"]);
+                throw new Error(errorMessage.NOT_VALID_ID.ua);
             }
 
             next();
@@ -17,11 +17,13 @@ module.exports = {
     },
 
     isNewCarValid: (req, res, next) => {
-        try{
-            const {model, color, price, prefLang = 'en'} = req.body;
+        try {
+            const {
+                model, color, price,
+            } = req.body;
 
-            if (!model || !color || !price ) {
-                throw new Error(errorMessage.EMPTY_FIELD['ua']);
+            if (!model || !color || !price) {
+                throw new Error(errorMessage.EMPTY_FIELD.ua);
             }
 
             next();
@@ -29,4 +31,4 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
-}
+};

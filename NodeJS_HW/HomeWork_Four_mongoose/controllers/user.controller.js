@@ -16,7 +16,7 @@ module.exports = {
 
     getSingleUser: async (req, res) => {
         try {
-            const {userId} = req.params;
+            const { userId } = req.params;
             const user = await userService.findUserById(userId);
 
             res.json(user);
@@ -29,7 +29,7 @@ module.exports = {
         try {
             await userService.createUser(req.body);
 
-            res.status(statusCode.CREATED).json(errorMessage.USER_CREATED['ua']);
+            res.status(statusCode.CREATED).json(errorMessage.USER_CREATED.ua);
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
@@ -37,13 +37,13 @@ module.exports = {
 
     deleteUser: async (req, res) => {
         try {
-            const {userId} = req.params;
+            const { userId } = req.params;
 
-           await userService.deleteUser(userId);
+            await userService.deleteUser(userId);
 
-            res.status(statusCode.NOT_FOUND).json(errorMessage.USER_DELETED['ua']);
+            res.status(statusCode.NOT_FOUND).json(errorMessage.USER_DELETED.ua);
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     }
-}
+};

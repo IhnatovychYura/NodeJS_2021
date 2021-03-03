@@ -4,10 +4,10 @@ const errorMessage = require('../errors/errors.messages');
 module.exports = {
     checkIsIdValid: (req, res, next) => {
         try {
-            const userId = req.params.userId;
+            const { userId } = req.params;
 
             if (userId.length !== 24) {
-                throw new Error(errorMessage.NOT_VALID_ID["ua"]);
+                throw new Error(errorMessage.NOT_VALID_ID.ua);
             }
 
             next();
@@ -17,19 +17,21 @@ module.exports = {
     },
 
     isNewUserValid: (req, res, next) => {
-        try{
-            const {email, login, password, prefLang = 'en'} = req.body;
+        try {
+            const {
+                email, login, password,
+            } = req.body;
 
-            if (!email || !login || !password ) {
-                throw new Error(errorMessage.EMPTY_FIELD['ua']);
+            if (!email || !login || !password) {
+                throw new Error(errorMessage.EMPTY_FIELD.ua);
             }
 
-            if (!email.includes('@')){
-                throw new Error(errorMessage.NOT_VALID_EMAIL['ua']);
+            if (!email.includes('@')) {
+                throw new Error(errorMessage.NOT_VALID_EMAIL.ua);
             }
 
-            if (password.length < 6){
-                throw new Error(errorMessage.TOO_WEAK_PASSWORD['ua']);
+            if (password.length < 6) {
+                throw new Error(errorMessage.TOO_WEAK_PASSWORD.ua);
             }
 
             next();
@@ -37,4 +39,4 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
-}
+};

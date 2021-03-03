@@ -1,35 +1,35 @@
-const DB = require('../dataBase/users');
+const DB = require('../dataBase/users.json');
 
 const errorMessage = require('../errors/errors.messages');
 
 module.exports = {
     findUsers: (reqUser) => {
-        let findUser = DB.find(user => user.email === reqUser.email);
+        const findUser = DB.find((user) => user.email === reqUser.email);
 
         if (!reqUser.email) {
-            return DB
+            return DB;
         }
 
         if (!findUser) {
-            throw new Error(errorMessage.USER_NOT_FOUND['ua']);
+            throw new Error(errorMessage.USER_NOT_FOUND.ua);
         }
 
-        return findUser
+        return findUser;
     },
 
     findUserById: (userId) => {
         if (userId > DB.length - 1) {
-            throw new Error(errorMessage.USER_NOT_FOUND['ua']);
+            throw new Error(errorMessage.USER_NOT_FOUND.ua);
         }
 
-        return DB[userId]
+        return DB[userId];
     },
 
     createUser: (userObject) => {
-        let findUser = DB.some(user => user.email === userObject.email);
+        const findUser = DB.some((user) => user.email === userObject.email);
 
         if (findUser) {
-            throw new Error(errorMessage.USER_EXISTS['ua']);
+            throw new Error(errorMessage.USER_EXISTS.ua);
         }
 
         DB.push(userObject);
@@ -37,9 +37,9 @@ module.exports = {
 
     deleteUser: (userId) => {
         if (userId > DB.length - 1) {
-            throw new Error(errorMessage.USER_NOT_FOUND['ua']);
+            throw new Error(errorMessage.USER_NOT_FOUND.ua);
         }
 
         DB.splice(userId, 1);
     }
-}
+};

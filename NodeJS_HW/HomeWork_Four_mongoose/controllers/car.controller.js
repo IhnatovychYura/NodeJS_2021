@@ -16,7 +16,7 @@ module.exports = {
 
     getSingleCar: async (req, res) => {
         try {
-            const {carId} = req.params;
+            const { carId } = req.params;
             const car = await carService.findCarById(carId);
 
             res.json(car);
@@ -29,7 +29,7 @@ module.exports = {
         try {
             await carService.createCar(req.body);
 
-            res.status(statusCode.CREATED).json(errorMessage.USER_CREATED['ua']);
+            res.status(statusCode.CREATED).json(errorMessage.USER_CREATED.ua);
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
@@ -37,13 +37,13 @@ module.exports = {
 
     deleteCar: async (req, res) => {
         try {
-            const {carId} = req.params;
+            const { carId } = req.params;
 
             await carService.deleteCar(carId);
 
-            res.status(statusCode.NOT_FOUND).json(errorMessage.USER_DELETED['ua']);
+            res.status(statusCode.NOT_FOUND).json(errorMessage.USER_DELETED.ua);
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     }
-}
+};

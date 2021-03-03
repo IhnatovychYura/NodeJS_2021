@@ -6,4 +6,4 @@ const carRouter = require('./car.router');
 router.use('/users', userRouter);
 router.use('/cars', carRouter);
 
-module.exports = router
+module.exports = router;

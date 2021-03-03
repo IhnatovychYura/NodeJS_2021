@@ -35,7 +35,7 @@ module.exports = {
     },
 
     USER_EXISTS: {
-        en: "User with this email already exists",
+        en: 'User with this email already exists',
         ua: 'Користувач із такою електронною адресою вже існує',
     },
-}
+};
