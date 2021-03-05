@@ -29,10 +29,12 @@ module.exports = {
     createUser: async (req, res) => {
         try {
             const { password } = req.body;
+            console.log(req.body);
 
             const hashPassword = await passwordHasher.hash(password);
 
             await userService.createUser({ ...req.body, password: hashPassword });
+            console.log({ ...req.body, password: hashPassword });
 
             res.status(statusCode.CREATED).json(errorMessage.USER_CREATED.ua);
         } catch (e) {
