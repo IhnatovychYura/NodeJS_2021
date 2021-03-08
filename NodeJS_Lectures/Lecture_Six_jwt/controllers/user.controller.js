@@ -34,8 +34,21 @@ module.exports = {
         }
     },
 
-    deleteUser: async (req, res) => {
+    deleteUser: (req, res) => {
         const { userId } = req.params;
+
+        if (userId !== req.user.id) {
+            throw new Error('Unauthorized user');
+        }
+
+        // Або такий варіант
+        // if (userId !== req.user._id.toString()) {
+        //     throw new Error('Unauthorized user');
+        // }
+
+        console.log('__________________');
+        console.log(req.user);
+        console.log('__________________');
 
         res.json(`${userId} is deleted`);
     },

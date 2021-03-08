@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
@@ -6,7 +7,8 @@ const apiRouter = require('./routers/api.router');
 
 const app = express();
 
-dotenv.config();
+dotenv.config({ path: path.join(process.cwd(), '../.env') });
+// dotenvConfigOutput.config();
 
 _connectDB();
 

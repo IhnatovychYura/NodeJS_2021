@@ -2,7 +2,6 @@ const { Schema, model } = require('mongoose');
 
 const { dataBaseTablesEnum: { USER } } = require('../../constants');
 
-
 // const carSubScheme = {
 //     model: { type: String },
 //     price: { type: Number },

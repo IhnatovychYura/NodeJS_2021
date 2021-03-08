@@ -4,10 +4,10 @@ const { userValidators } = require('../validators');
 module.exports = {
     checkIsIdValid: (req, res, next) => {
         try {
-            const userId = +req.params.userId;
+            const { error } = userValidators.userIdValidator.validate(req.params);
 
-            if (userId < 0 || !Number.isInteger(userId) || Number.isNaN(userId)) {
-                throw new Error('Not Valid Id');
+            if (error) {
+                throw new Error(error.details[0].message);
             }
 
             next();

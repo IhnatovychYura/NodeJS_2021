@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const { oAuthModel } = require('../dataBase/models');
-const { JWT_SECRET } = require('../configs/config')
+const { JWT_SECRET } = require('../configs/config');
 
 module.exports = {
     checkAccessTokenMiddleware: async (req, res, next) => {
@@ -28,6 +28,8 @@ module.exports = {
             }
 
             console.log(access_token);
+
+            req.user = tokens._user_id;
 
             next();
         } catch (e) {
