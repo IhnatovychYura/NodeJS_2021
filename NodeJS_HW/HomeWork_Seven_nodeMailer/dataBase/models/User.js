@@ -1,11 +1,13 @@
 const { Schema, model } = require('mongoose');
 
+const { dataBaseTables: { USER, CAR } } = require('../../constants');
+
 const userScheme = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     login: { type: String, },
     yearOfBorn: { type: Number },
-    cars: [{ type: Schema.Types.Mixed }],
+    cars: [{ type: Schema.Types.ObjectId }],
 }, { timestamp: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userScheme.virtual('full_name').get(function() {
@@ -13,7 +15,7 @@ userScheme.virtual('full_name').get(function() {
 });
 
 userScheme.virtual('userCars', {
-    ref: 'Car',
+    ref: CAR,
     localField: 'cars',
     foreignField: '_id',
 });
@@ -27,4 +29,4 @@ userScheme.pre('find', function() {
         this.populate('userCars');
     });
 
-module.exports = model('User', userScheme);
+module.exports = model(USER, userScheme);

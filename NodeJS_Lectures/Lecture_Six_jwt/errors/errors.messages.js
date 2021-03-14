@@ -3,4 +3,4 @@ module.exports = {
         en: 'Too weak password',
         ua: 'Ненадійний пароль',
     }
-}
+};

@@ -1,6 +1,8 @@
 const Joi = require('joi');
 
 module.exports = Joi.object({
+    prefLang: Joi
+        .string(),
     color: Joi
         .string(),
     model: Joi

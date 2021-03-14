@@ -19,14 +19,19 @@ module.exports = {
         ua: "Некоректно вказана електронна пошта! Коректна електронка повинна містити '@'",
     },
 
+    WRONG_EMAIL_OR_PASSWORD: {
+        en: 'Wrong email or password',
+        ua: 'Некоректно вказана електронна пошта або пароль користувача',
+    },
+
     USER_CREATED: {
         en: 'New user is created',
         ua: 'Створено нового користувача',
     },
 
-    USER_DELETED: {
-        en: 'User was successful deleted',
-        ua: 'Користувача було видалено',
+    CAR_CREATED: {
+        en: 'New car is created',
+        ua: 'Створено новий автомобіль',
     },
 
     USER_NOT_FOUND: {
@@ -37,5 +42,20 @@ module.exports = {
     USER_EXISTS: {
         en: 'User with this email already exists',
         ua: 'Користувач із такою електронною адресою вже існує',
+    },
+
+    USER_WAS_UPDATE: {
+        en: 'User was update',
+        ua: 'Дані користувача змінено',
+    },
+
+    USER_WAS_DELETED: {
+        en: 'User was deleted',
+        ua: 'Дані користувача було видалено',
+    },
+
+    CAR_WAS_DELETED: {
+        en: 'Car was deleted',
+        ua: 'Автомобіль було видалено',
     },
 };

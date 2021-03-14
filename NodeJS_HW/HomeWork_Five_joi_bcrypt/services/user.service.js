@@ -1,11 +1,10 @@
 const { UserModel } = require('../dataBase/models');
+require('../dataBase/models/Car');
 
 module.exports = {
-    findUsers: (userQuery) => UserModel.find(userQuery),
-
-    findUserById: (userId) => UserModel.findById(userId),
-
     createUser: (userObject) => UserModel.create(userObject),
-
-    deleteUser: (userId) => UserModel.findByIdAndRemove(userId)
+    deleteUser: (userId) => UserModel.findByIdAndDelete(userId),
+    findUsers: (filterObject) => UserModel.find(filterObject),
+    findUserById: (userId) => UserModel.findById(userId),
+    updateUser: (userId, newUserObject) => UserModel.findByIdAndUpdate(userId, newUserObject)
 };
