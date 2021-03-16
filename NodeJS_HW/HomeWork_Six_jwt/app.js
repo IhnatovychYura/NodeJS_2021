@@ -1,27 +1,28 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
-const { apiRouter } = require('./routers');
-const { dirService } = require('./services');
+const apiRouter = require('./routers/api.router');
+const { MONGO_URL, PORT } = require('./configs/config');
 
 const app = express();
-const dirName = __dirname;
+
+dotenv.config({ path: path.join(process.cwd(), '../.env') });
 
 _connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(5000, () => {
-    console.log('App listen 5000');
+app.listen(PORT, () => {
+    console.log(`App listen ${PORT}`);
 });
-
-dirService.createDir(dirName);
 
 app.use('/', apiRouter);
 
 function _connectDB() {
-    mongoose.connect('mongodb://localhost:27017/node-hw-four', { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
     const { connection } = mongoose;
 

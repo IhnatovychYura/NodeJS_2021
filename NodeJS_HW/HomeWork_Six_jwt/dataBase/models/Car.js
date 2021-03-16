@@ -1,12 +1,11 @@
 const { Schema, model } = require('mongoose');
 
+const { dataBaseTables: { CAR } } = require('../../constants');
+
 const carScheme = new Schema({
-    model: { type: String },
     color: { type: String },
+    model: { type: String },
     price: { type: Number },
-},
-{
-    timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true }
 });
 
-module.exports = model('Car', carScheme);
+module.exports = model(CAR, carScheme);

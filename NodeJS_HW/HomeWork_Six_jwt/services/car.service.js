@@ -1,11 +1,8 @@
-const Car = require('../dataBase/models/Car');
+const { CarModel } = require('../dataBase/models');
 
 module.exports = {
-    findCars: (carQuery) => Car.find(carQuery),
-
-    findCarById: (carId) => Car.findById(carId),
-
-    createCar: (carObject) => Car.create(carObject),
-
-    deleteCar: (carId) => Car.findByIdAndRemove(carId)
+    createCar: (carObject) => CarModel.create(carObject),
+    deleteCar: (carId) => CarModel.findByIdAndDelete(carId),
+    findCars: (carObject) => CarModel.find(carObject),
+    findCarById: (carId) => CarModel.findById(carId),
 };

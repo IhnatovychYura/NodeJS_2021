@@ -1,3 +1,5 @@
 module.exports = {
-    createCarValidator: require('./create-car.validator')
+    carQueryParamsValidator: require('./carQueryParams.validator'),
+    createCarValidator: require('./create-car.validator'),
+    carIdValidator: require('./carId.validator'),
 };

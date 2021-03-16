@@ -1,10 +1,8 @@
-const carService = require('../services/car.service');
-const statusCode = require('../constants/statusCodes.enums');
-const errorMessage = require('../errors/errors.messages');
+const { statusCode, statusMessages } = require('../constants');
+const { carService } = require('../services');
 
 module.exports = {
-
-    getCars: async (req, res) => {
+    getAllCars: async (req, res) => {
         try {
             const cars = await carService.findCars(req.query);
 
@@ -13,8 +11,7 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
-
-    getSingleCar: async (req, res) => {
+    getCarById: async (req, res) => {
         try {
             const { carId } = req.params;
             const car = await carService.findCarById(carId);
@@ -24,24 +21,25 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
-
     createCar: async (req, res) => {
         try {
+            const { prefLang = 'en' } = req.query;
+
             await carService.createCar(req.body);
 
-            res.status(statusCode.CREATED).json(errorMessage.USER_CREATED.ua);
+            res.status(statusCode.CREATED).json(statusMessages.CAR_CREATED[prefLang]);
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
-
     deleteCar: async (req, res) => {
         try {
+            const { prefLang = 'en' } = req.query;
             const { carId } = req.params;
 
             await carService.deleteCar(carId);
 
-            res.status(statusCode.NOT_FOUND).json(errorMessage.USER_DELETED.ua);
+            res.status(statusCode.NOT_FOUND).json(statusMessages.CAR_WAS_DELETED[prefLang]);
         } catch (e) {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }

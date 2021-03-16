@@ -38,14 +38,9 @@ module.exports = {
     },
     updateUser: async (req, res) => {
         try {
-            const { userFromToken } = req;
             const { userId } = req.params;
             const { password } = req.body;
             const { prefLang = 'en' } = req.query;
-
-            if (userId !== userFromToken.id) {
-                throw new Error(statusMessages.UNAUTHORIZED_USER[prefLang]);
-            }
 
             const hashPassword = await passwordHasher.hash(password);
 
@@ -58,13 +53,8 @@ module.exports = {
     },
     deleteUser: async (req, res) => {
         try {
-            const { userFromToken } = req;
             const { userId } = req.params;
             const { prefLang = 'en' } = req.query;
-
-            if (userId !== userFromToken.id) {
-                throw new Error(statusMessages.UNAUTHORIZED_USER[prefLang]);
-            }
 
             await userService.deleteUser(userId);
 

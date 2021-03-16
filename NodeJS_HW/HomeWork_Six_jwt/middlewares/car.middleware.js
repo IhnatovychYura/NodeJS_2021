@@ -1,13 +1,13 @@
-const statusCode = require('../constants/statusCodes.enums');
-const errorMessage = require('../errors/errors.messages');
+const { statusCode } = require('../constants');
+const { carValidator } = require('../validators');
 
 module.exports = {
-    checkIsIdValid: (req, res, next) => {
+    isCarQueryValid: (req, res, next) => {
         try {
-            const { carId } = req.params;
+            const { error } = carValidator.carQueryParamsValidator.validate(req.query);
 
-            if (carId.length !== 24) {
-                throw new Error(errorMessage.NOT_VALID_ID.ua);
+            if (error) {
+                throw new Error(error.details[0].message);
             }
 
             next();
@@ -15,15 +15,25 @@ module.exports = {
             res.status(statusCode.BAD_REQUEST).json(e.message);
         }
     },
-
     isNewCarValid: (req, res, next) => {
         try {
-            const {
-                model, color, price,
-            } = req.body;
+            const { error } = carValidator.createCarValidator.validate(req.body);
 
-            if (!model || !color || !price) {
-                throw new Error(errorMessage.EMPTY_FIELD.ua);
+            if (error) {
+                throw new Error(error.details[0].message);
+            }
+
+            next();
+        } catch (e) {
+            res.status(statusCode.BAD_REQUEST).json(e.message);
+        }
+    },
+    isIdValid: (req, res, next) => {
+        try {
+            const { error } = carValidator.carIdValidator.validate(req.params);
+
+            if (error) {
+                throw new Error(error.details[0].message);
             }
 
             next();
