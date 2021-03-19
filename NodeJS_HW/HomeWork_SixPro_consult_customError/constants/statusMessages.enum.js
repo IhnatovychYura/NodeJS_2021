@@ -50,8 +50,8 @@ module.exports = {
 
     UNAUTHORIZED_USER: {
         message: {
-            en: 'User is unauthorized',
-            ua: 'Неавторизований користувач',
+            en: 'User is unauthorized, check if userId is correct',
+            ua: 'Неавторизований користувач, перевір ідентифікатор користувача',
         },
         customCode: 4013
     },

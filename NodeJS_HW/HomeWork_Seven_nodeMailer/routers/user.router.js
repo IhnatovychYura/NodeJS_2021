@@ -11,19 +11,17 @@ router.post('/',
     userMiddleware.existUserInDB,
     userController.createUser);
 
+router.use('/:userId', userMiddleware.isIdValid,); // за таким роутом завжди буде провірка ID
 router.get('/:userId',
-    userMiddleware.isIdValid,
     userController.getUserById);
 router.put('/:userId',
     authMiddleware.checkAccessToken,
     authMiddleware.isAuthorized,
-    userMiddleware.isIdValid,
     userMiddleware.isNewUserValid,
     userController.updateUser);
 router.delete('/:userId',
     authMiddleware.checkAccessToken,
     authMiddleware.isAuthorized,
-    userMiddleware.isIdValid,
     userController.deleteUser);
 
 module.exports = router;

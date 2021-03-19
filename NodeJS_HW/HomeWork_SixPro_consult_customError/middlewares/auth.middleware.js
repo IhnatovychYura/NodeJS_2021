@@ -76,7 +76,7 @@ module.exports = {
 
             if (!refresh_token) {
                 throw new ErrorHandler(
-                    statusMessages.TOKEN_REQUIRE[prefLang],
+                    statusMessages.TOKEN_REQUIRE.message[prefLang],
                     statusCode.BAD_REQUEST,
                     statusMessages.TOKEN_REQUIRE.customCode,
                 );
@@ -85,7 +85,7 @@ module.exports = {
             jwt.verify(refresh_token, JWT_REFRESH_SECRET, (err) => {
                 if (err) {
                     throw new ErrorHandler(
-                        statusMessages.NOT_VALID_REFRESH_TOKEN[prefLang],
+                        statusMessages.NOT_VALID_REFRESH_TOKEN.message[prefLang],
                         statusCode.UNAUTHORIZED,
                         statusMessages.NOT_VALID_REFRESH_TOKEN.customCode,
                     );
@@ -98,7 +98,7 @@ module.exports = {
 
             if (!tokens || null) {
                 throw new ErrorHandler(
-                    statusMessages.NOT_VALID_TOKEN_DB[prefLang],
+                    statusMessages.NOT_VALID_TOKEN_DB.message[prefLang],
                     statusCode.NOT_FOUND,
                     statusMessages.NOT_VALID_TOKEN_DB.customCode,
                 );
@@ -117,7 +117,7 @@ module.exports = {
 
             if (userId !== userIdFromAccessToken.id) {
                 throw new ErrorHandler(
-                    statusMessages.UNAUTHORIZED_USER[prefLang],
+                    statusMessages.UNAUTHORIZED_USER.message[prefLang],
                     statusCode.UNAUTHORIZED,
                     statusMessages.UNAUTHORIZED_USER.customCode,
                 );
