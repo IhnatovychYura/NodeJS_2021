@@ -1,3 +1,4 @@
+const { ErrorHandler } = require('../error');
 const { statusCode, statusMessages } = require('../constants');
 const { UserModel } = require('../dataBase/models');
 const { userValidators } = require('../validators');
@@ -8,12 +9,12 @@ module.exports = {
             const { error } = userValidators.userQueryParamsValidator.validate(req.query);
 
             if (error) {
-                throw new Error(error.details[0].message);
+                throw new ErrorHandler(error.details[0].message, statusCode.BAD_REQUEST);
             }
 
             next();
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     },
     isNewUserValid: (req, res, next) => {
@@ -21,12 +22,12 @@ module.exports = {
             const { error } = userValidators.createUserValidator.validate(req.body);
 
             if (error) {
-                throw new Error(error.details[0].message);
+                throw new ErrorHandler(error.details[0].message, statusCode.BAD_REQUEST);
             }
 
             next();
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     },
     isIdValid: (req, res, next) => {
@@ -34,12 +35,12 @@ module.exports = {
             const { error } = userValidators.userIdValidator.validate(req.params);
 
             if (error) {
-                throw new Error(error.details[0].message);
+                throw new ErrorHandler(error.details[0].message, statusCode.BAD_REQUEST);
             }
 
             next();
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     },
     existUserInDB: async (req, res, next) => {
@@ -50,12 +51,17 @@ module.exports = {
             const user = await UserModel.findOne({ email });
 
             if (user) {
-                throw new Error(statusMessages.USER_EXISTS[prefLang]);
+                throw new ErrorHandler(
+                    statusMessages.USER_EXISTS.messages[prefLang],
+                    statusCode.BAD_REQUEST,
+                    statusMessages.USER_EXISTS.customCode,
+                    statusMessages.USER_EXISTS.isPublic,
+                );
             }
 
             next();
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     }
 };

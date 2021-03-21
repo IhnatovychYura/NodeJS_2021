@@ -2,26 +2,26 @@ const { statusCode, statusMessages } = require('../constants');
 const { carService } = require('../services');
 
 module.exports = {
-    getAllCars: async (req, res) => {
+    getAllCars: async (req, res, next) => {
         try {
             const cars = await carService.findCars(req.query);
 
             res.json(cars);
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     },
-    getCarById: async (req, res) => {
+    getCarById: async (req, res, next) => {
         try {
             const { carId } = req.params;
             const car = await carService.findCarById(carId);
 
             res.json(car);
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     },
-    createCar: async (req, res) => {
+    createCar: async (req, res, next) => {
         try {
             const { prefLang = 'en' } = req.query;
 
@@ -29,10 +29,10 @@ module.exports = {
 
             res.status(statusCode.CREATED).json(statusMessages.CAR_CREATED[prefLang]);
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     },
-    deleteCar: async (req, res) => {
+    deleteCar: async (req, res, next) => {
         try {
             const { prefLang = 'en' } = req.query;
             const { carId } = req.params;
@@ -41,7 +41,7 @@ module.exports = {
 
             res.status(statusCode.NOT_FOUND).json(statusMessages.CAR_WAS_DELETED[prefLang]);
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
         }
     }
 };

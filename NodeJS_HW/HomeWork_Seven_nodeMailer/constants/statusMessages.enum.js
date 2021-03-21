@@ -15,12 +15,20 @@ module.exports = {
         customCode: 4002,
     },
 
+    WRONG_EMAIL_ACTION: {
+        message: {
+            en: 'Wrong email action',
+            ua: 'Некоректна дія з електронною поштою',
+        },
+        customCode: 4003,
+    },
+
     USER_EXISTS: {
         messages: {
             en: 'User with this email already exists',
             ua: 'Користувач із такою електронною адресою вже існує'
         },
-        customCode: 4003,
+        customCode: 4004,
         isPublic: true,
     },
 

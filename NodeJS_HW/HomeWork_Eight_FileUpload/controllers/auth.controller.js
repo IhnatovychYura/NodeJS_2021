@@ -1,9 +1,8 @@
-const { statusCode } = require('../constants');
 const { authService } = require('../services');
 const { passwordHasher, tokenizer } = require('../helpers');
 
 module.exports = {
-    authUser: async (req, res) => {
+    authUser: async (req, res, next) => {
         try {
             const { foundUser } = req;
             const { password } = req.body;
@@ -17,7 +16,21 @@ module.exports = {
 
             res.json(tokens);
         } catch (e) {
-            res.status(statusCode.BAD_REQUEST).json(e.message);
+            next(e);
+        }
+    },
+    createNewTokens: async (req, res, next) => {
+        try {
+            const { foundUserId } = req;
+            const { tokensId } = req;
+
+            const tokens = tokenizer();
+
+            await authService.updateTokensById(tokensId, { ...tokens, foundUserId });
+
+            res.json(tokens);
+        } catch (e) {
+            next(e);
         }
     }
 };
