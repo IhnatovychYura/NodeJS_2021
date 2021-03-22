@@ -21,19 +21,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Якщо це не GMAIL то треба додатково прописувати від пошти smtp port і secure
-// - ці дані можна отримати якщо написати на support потрібної пошти
-// а для GMAIL в цій лібі все прописано під капотом
-//
-// let transporter = nodemailer.createTransport({
-//     host: "smtp.ethereal.email",
-//     port: 587,
-//     secure: false, // true for 465, false for other ports
-//     auth: {
-//         user: testAccount.user, // generated ethereal user
-//         pass: testAccount.pass, // generated ethereal password
-//     },
-
 const sendMail = async (userMail, action, context) => {
     try {
         const foundTemplate = templatesInfo[action];

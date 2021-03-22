@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const apiRouter = require('./routers/api.router');
 const { MONGO_URL, PORT } = require('./configs/config');
@@ -9,8 +11,11 @@ const app = express();
 
 _connectDB();
 
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(process.cwd(), 'static')));
 
 app.listen(PORT, () => {
     console.log(`App listen ${PORT}`);

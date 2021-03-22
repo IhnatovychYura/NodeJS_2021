@@ -4,10 +4,11 @@ const { dataBaseTables: { USER, CAR } } = require('../../constants');
 
 const userScheme = new Schema({
     email: { type: String, required: true },
-    password: { type: String, required: true },
+    password: { type: String, required: true, select: false },
     login: { type: String, },
     yearOfBorn: { type: Number },
     cars: [{ type: Schema.Types.ObjectId }],
+    avatar: { type: String }
 }, { timestamp: true, toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 userScheme.virtual('full_name').get(function() {

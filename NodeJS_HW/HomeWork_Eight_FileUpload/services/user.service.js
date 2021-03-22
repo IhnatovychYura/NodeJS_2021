@@ -6,5 +6,5 @@ module.exports = {
     deleteUser: (userId) => UserModel.findByIdAndDelete(userId),
     findUsers: (filterObject) => UserModel.find(filterObject),
     findUserById: (userId) => UserModel.findById(userId),
-    updateUser: (userId, newUserObject) => UserModel.findByIdAndUpdate(userId, newUserObject)
+    updateUser: (userId, newUserObject) => UserModel.findByIdAndUpdate(userId, { $set: newUserObject })
 };

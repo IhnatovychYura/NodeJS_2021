@@ -1,3 +1,7 @@
+const fs = require('fs-extra').promises;
+const path = require('path');
+const uuid = require('uuid').v1;
+
 const { passwordHasher } = require('../helpers');
 const { emailActions, statusCode, statusMessages } = require('../constants');
 const { mailService, userService } = require('../services');
@@ -24,12 +28,27 @@ module.exports = {
     },
     createUser: async (req, res, next) => {
         try {
-            const { password, email, login } = req.body;
+            const { body: { password, email, login }, avatar } = req;
             const { prefLang = 'en' } = req.query;
 
             const hashPassword = await passwordHasher.hash(password);
 
-            await userService.createUser({ ...req.body, password: hashPassword });
+            const user = await userService.createUser({ ...req.body, password: hashPassword });
+
+            if (avatar) {
+                const pathWithoutStatic = path.join('user', `${user._id}`, 'photos');
+                const photoDir = path.join(process.cwd(), 'static', pathWithoutStatic);
+                const fileExtension = avatar.name.split('.').pop();
+                const photoName = `${uuid()}.${fileExtension}`;
+                const finalPhotoPath = path.join(photoDir, photoName);
+
+                console.log(finalPhotoPath);
+
+                await fs.mkdir(photoDir, { recursive: true });
+                await avatar.mv(finalPhotoPath);
+
+                await userService.updateUser(user._id, { avatar: pathWithoutStatic, photoName });
+            }
 
             await mailService.sendMail(email, emailActions.WELCOME, { userName: login });
 

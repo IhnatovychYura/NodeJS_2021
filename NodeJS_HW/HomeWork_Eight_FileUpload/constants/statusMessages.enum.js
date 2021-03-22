@@ -37,7 +37,31 @@ module.exports = {
             en: 'Token is required',
             ua: 'Необхідно надати токен авторизації',
         },
-        customCode: 4004,
+        customCode: 4005,
+    },
+
+    NOT_VALID_FILE: {
+        message: {
+            en: 'Not valid file',
+            ua: 'Файл не пройшов валідації (невідомий формат файлу)',
+        },
+        customCode: 4006,
+    },
+
+    OVER_SIZE_FILE: {
+        message: {
+            en: 'File size is too big',
+            ua: 'Розмір файлу завеликий',
+        },
+        customCode: 4007,
+    },
+
+    AVATAR_QUANTITY: {
+        message: {
+            en: 'It`s impossible to upload more then one photo on Avatar',
+            ua: 'Не можна завантажувати більше ніж одне фото на Аватарку',
+        },
+        customCode: 4008,
     },
 
     NOT_VALID_ACCESS_TOKEN: {

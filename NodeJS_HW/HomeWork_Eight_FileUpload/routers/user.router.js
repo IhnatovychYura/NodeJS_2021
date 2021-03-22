@@ -1,27 +1,42 @@
 const router = require('express').Router();
 
 const { userController } = require('../controllers');
-const { userMiddleware, authMiddleware } = require('../middlewares');
+const { userMiddleware, fileMiddleware, authMiddleware } = require('../middlewares');
 
-router.get('/',
+router.get(
+    '/',
     userMiddleware.isUserQueryValid,
-    userController.getAllUsers);
-router.post('/',
+    userController.getAllUsers
+);
+router.post(
+    '/',
+    fileMiddleware.checkFileMiddleware,
+    fileMiddleware.checkAvatar,
     userMiddleware.isNewUserValid,
     userMiddleware.existUserInDB,
-    userController.createUser);
+    userController.createUser
+);
 
-router.use('/:userId', userMiddleware.isIdValid,); // за таким роутом завжди буде провірка ID
-router.get('/:userId',
-    userController.getUserById);
-router.put('/:userId',
+router.use(
+    '/:userId',
+    userMiddleware.isIdValid,
+);
+router.get(
+    '/:userId',
+    userController.getUserById
+);
+router.put(
+    '/:userId',
     authMiddleware.checkAccessToken,
     authMiddleware.isAuthorized,
     userMiddleware.isNewUserValid,
-    userController.updateUser);
-router.delete('/:userId',
+    userController.updateUser
+);
+router.delete(
+    '/:userId',
     authMiddleware.checkAccessToken,
     authMiddleware.isAuthorized,
-    userController.deleteUser);
+    userController.deleteUser
+);
 
 module.exports = router;
